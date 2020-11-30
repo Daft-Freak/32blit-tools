@@ -1,7 +1,6 @@
 import io
 import struct
 
-import freetype
 from PIL import Image
 
 from ..core.assetbuilder import AssetBuilder
@@ -85,6 +84,8 @@ class FontAsset(AssetBuilder):
         return font_data, font_w, char_width, char_height
 
     def process_ft_font(self, input_data):
+        import freetype
+
         if self.height == 0:
             raise TypeError("Height must be specified for font files")
 
