@@ -8,10 +8,16 @@ class AssetWriter:
     def __init__(self):
         self._assets = {}
 
-    def add_asset(self, symbol, data):
-        if symbol in self._assets:
-            raise NameError(f'Symbol {symbol} has already been added.')
-        self._assets[symbol] = data
+    def add_asset(self, symbol, data): # add_assets?
+        if type(data) is not dict:
+            data = {'': data}
+
+        for suffix in data:
+            suffixed = (symbol or '') + (suffix or '')
+
+            if suffixed in self._assets:
+                raise NameError(f'Symbol {suffixed} has already been added.')
+            self._assets[suffixed] = data[suffix]
 
     def _sorted(self, sort):
         if sort is None:
