@@ -53,18 +53,18 @@ def tiled_to_binary(data, empty_tile, output_struct):
         width = int(root.get("width"))
         height = int(root.get("height"))
 
-        return struct.pack(
+        return {None: struct.pack(
             '<4sBHHH',
             bytes('MTMX', encoding='utf-8'),
             empty_tile,
             width,
             height,
             layer_count
-        ) + layer_data + bytes(transform_data)
+        ) + layer_data, '_transforms': bytes(transform_data)}
 
     else:
         # Just return the raw layer data
-        return layer_data + bytes(transform_data)
+        return {None: layer_data, '_transforms': bytes(transform_data)}
 
 
 @AssetBuilder(typemap=map_typemap)
